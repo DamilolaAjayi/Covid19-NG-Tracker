@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>NG Covid-19 Tracker</title>
+</head>
+<body>
+
+<div class="container">
+        <h1>NG Covid-19 Tracker</h1>
+        <p>Built by <a class="badge badge-dark" href="https://www.twitter.com/elntk">@elntk</a></p>
+    <div class="jumbotron">
+        <p class="lead">Total number of cases reported as at this moment.</p>
+        <h1 class="display-4" th:text="${totalReportedCases}">Total number of cases</h1>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">States Affected</th>
+                <th scope="col">Total no. of cases</th>
+                <th scope="col">No. of Cases Receiving Treatment</th>
+                <th scope="col">Total No. Discharged</th>
+                <th scope="col">No. of Deaths</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="state : ${stateStats}">
+                <th scope="row" th:text="${state.getState()}">States Affected</th>
+                <td th:text="${state.getTotalNoOfCases()}">No. of Cases</td>
+                <td th:text="${state.getTotalNoOfCasesRT()}">No. of cases receiving treatment</td>
+                <td th:text="${state.getTotalNoDischarged()}">No. Discharged</td>
+                <td th:text="${state.getTotalNoOfDeaths()}">No. of Deaths</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+</body>
+</html>
+
+
+
