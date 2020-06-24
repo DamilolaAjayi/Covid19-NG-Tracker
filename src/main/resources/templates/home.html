@@ -6,52 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        body{
-            color:#6c757d;
-            background-color: #f5f5f5;
-        }
-        h1{
-            color:#1fab89;
-        }
-        .jumbotron{
-            background-color: #d7fbe8;
-        }
-        .badge, .thead{
-            background-color: #1fab89;
-        }
-        .thead{
-            color:white;
-        }
-        tbody> tr:nth-child(even){
-            background-color: #9df3c4;
-        }
-        td:nth-child(5){
-            color:#d92027;
-        }
-        td:nth-child(4){
-            color:#01a9b4;
-        }
-        @media screen and (max-width: 600px) {
-            body{
-                font-size: 0.625rem;
-                padding:0.5rem;
-            }
-            .display-3, .display-4{
-                font-size:2rem;
-            }
-            .jumbotron{
-                padding: 1rem 1rem;
-                margin-bottom: 1.5rem;
-            }
-            .blockquote-footer{
-                font-size:60%;
-            }
-            .table th, .table td{
-                padding: 0.5rem;
-            }
-        }
+        body{color:#6c757d;background-color:#f5f5f5}h1{color:#1fab89}.jumbotron{background-color:#d7fbe8}.badge,.thead{background-color:#1fab89}.fas{float:right;line-height:unset!important;margin-right:0}.fas:hover{color:grey;cursor:pointer}.thead{color:#fff}tbody>tr:nth-child(even){background-color:#9df3c4}td:nth-child(5){color:#d92027}td:nth-child(4){color:#01a9b4}@media screen and (max-width:600px){body{font-size:.625rem;padding:.5rem}.display-3,.display-4{font-size:2rem}.jumbotron{padding:1rem 1rem;margin-bottom:1.5rem}.blockquote-footer{font-size:60%}.table td{padding:.5rem}thead>tr>th{width:78px;padding:3px!important}}
     </style>
-    <title>NG Covid-19 Tracker</title>
+  <title>NG Covid-19 Tracker</title>
 </head>
 <body>
 <div class="container">
@@ -60,30 +17,34 @@
         <footer class="blockquote-footer my-3">Built by <a class="badge badge-dark" href="https://www.twitter.com/dtajayi">@dtajayi</a>, source code available on <cite><a class="badge badge-dark" href="https://github.com/DamilolaAjayi/Covid19-NG-Tracker">Github</a></cite></footer>
     </blockquote>
     <div class="jumbotron py-5">
-        <p class="lead">Total number of cases reported as at this moment.</p>
+        <p class="lead">Total number of cases reported as at this moment:</p>
         <h1 class="display-4" th:text="${totalReportedCases}">Total number of cases</h1>
     </div>
     <table class="table table-bordered">
         <thead class="thead">
             <tr>
                 <th scope="col">States Affected</th>
-                <th scope="col">Total no. of cases</th>
-                <th scope="col">No. of Cases Receiving Treatment</th>
-                <th scope="col">Total No. Discharged</th>
-                <th scope="col">No. of Deaths</th>
+                <th scope="col" onclick="sortColumn('TC')">Total no. of cases <i class="fas fa-sort"/> </th>
+                <th scope="col" onclick="sortColumn('TR')">No. of Cases Receiving Treatment <i class="fas fa-sort"/> </th>
+                <th scope="col" onclick="sortColumn('TDi')">Total No. Discharged <i class="fas fa-sort"/> </th>
+                <th scope="col" onclick="sortColumn('TD')">No. of Deaths <i class="fas fa-sort"/> </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tableData">
             <tr th:each="state : ${stateStats}">
-                <th scope="row" th:text="${state.getState()}">States Affected</th>
-                <td th:text="${state.getTotalNoOfCases()}">No. of Cases</td>
-                <td th:text="${state.getTotalNoOfCasesRT()}">No. of cases receiving treatment</td>
-                <td th:text="${state.getTotalNoDischarged()}">No. Discharged</td>
-                <td th:text="${state.getTotalNoOfDeaths()}">No. of Deaths</td>
+                <th scope="row" th:text="${state.getState()}">States Affected</i></th>
+                <td class="first" th:text="${state.getTotalNoOfCases()}">No. of Cases</td>
+                <td class="second" th:text="${state.getTotalNoOfCasesRT()}">No. of Cases receiving treatment</td>
+                <td class="third" th:text="${state.getTotalNoDischarged()}">No. Discharged</i></td>
+                <td class="fourth" th:text="${state.getTotalNoOfDeaths()}">No. of Deaths</i></td>
             </tr>
         </tbody>
     </table>
     </div>
+    <script src="https://kit.fontawesome.com/639d7f2894.js" crossorigin="anonymous"></script>
+    <script>
+        var states=[];let sortDirection=!1;var tableBody;function loadTableData(t){let e="";for(let o of t)e+=`<tr><th scope="row">${o.name}</th><td class="first">${o.TC}</td><td class="second">${o.TR}</td><td class="third">${o.TDi}</td><td class="fourth">${o.TD}</td></tr>`;tableBody.innerHTML=e}function sortColumn(t){sortColumnNumber(sortDirection=!sortDirection,t),loadTableData(states)}function sortColumnNumber(t,e){states=states.sort((o,r)=>t?o[e]-r[e]:r[e]-o[e])}setTimeout(()=>{tableBody=document.getElementById("tableData");for(var t=document.querySelectorAll("tbody>tr>th"),e=document.querySelectorAll(".first"),o=document.querySelectorAll(".second"),r=document.querySelectorAll(".third"),n=document.querySelectorAll(".fourth"),l=0;l<36;l++)states[l]={name:t[l].textContent,TC:e[l].textContent,TR:o[l].textContent,TDi:r[l].textContent,TD:n[l].textContent}},2e3);
+    </script>
 </body>
 </html>
 
