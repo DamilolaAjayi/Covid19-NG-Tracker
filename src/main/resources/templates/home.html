@@ -8,7 +8,8 @@
     <style>
         body{color:#6c757d;background-color:#f5f5f5}h1{color:#1fab89}.jumbotron{background-color:#d7fbe8}.badge,.thead{background-color:#1fab89}.fas{float:right;line-height:unset!important;margin-right:0}.fas:hover{color:grey;cursor:pointer}.thead{color:#fff}tbody>tr:nth-child(even){background-color:#9df3c4}td:nth-child(5){color:#d92027}td:nth-child(4){color:#01a9b4}@media screen and (max-width:600px){body{font-size:.625rem;padding:.5rem}.display-3,.display-4{font-size:2rem}.jumbotron{padding:1rem 1rem;margin-bottom:1.5rem}.blockquote-footer{font-size:60%}.table td{padding:.5rem}thead>tr>th{width:78px;padding:3px!important}}
     </style>
-  <title>NG Covid-19 Tracker</title>
+    <title>NG Covid-19 Tracker</title>
+    <script src="https://kit.fontawesome.com/639d7f2894.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
@@ -41,7 +42,6 @@
         </tbody>
     </table>
     </div>
-    <script src="https://kit.fontawesome.com/639d7f2894.js" crossorigin="anonymous"></script>
     <script>
         var states=[];let sortDirection=!1;var tableBody;function loadTableData(t){let e="";for(let o of t)e+=`<tr><th scope="row">${o.name}</th><td class="first">${o.TC}</td><td class="second">${o.TR}</td><td class="third">${o.TDi}</td><td class="fourth">${o.TD}</td></tr>`;tableBody.innerHTML=e}function sortColumn(t){sortColumnNumber(sortDirection=!sortDirection,t),loadTableData(states)}function sortColumnNumber(t,e){states=states.sort((o,r)=>t?o[e]-r[e]:r[e]-o[e])}setTimeout(()=>{tableBody=document.getElementById("tableData");for(var t=document.querySelectorAll("tbody>tr>th"),e=document.querySelectorAll(".first"),o=document.querySelectorAll(".second"),r=document.querySelectorAll(".third"),n=document.querySelectorAll(".fourth"),l=0;l<36;l++)states[l]={name:t[l].textContent,TC:e[l].textContent,TR:o[l].textContent,TDi:r[l].textContent,TD:n[l].textContent}},2e3);
     </script>
