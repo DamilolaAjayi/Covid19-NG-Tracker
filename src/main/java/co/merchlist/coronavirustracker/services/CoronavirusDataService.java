@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class CoronavirusDataService {
 
-    private static final String VIRUS_DATA_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQkYQJxtRsPowelYrV1L_PPYHNLN6z986-O9PG_tDK8LlIh_CICAxheFN58EW-_6Exx9X3DzDhxbhAm/pub?gid=0&single=true&output=csv";
+    private static final String VIRUS_DATA_URL = "https://raw.githubusercontent.com/DamilolaAjayi/Covid19-NG-Tracker/master/src/main/resources/COVID19%20Data.csv";
 
     private List<StateStats> allStats = new ArrayList<>();
 
@@ -36,17 +36,17 @@ public class CoronavirusDataService {
                 .uri(URI.create(VIRUS_DATA_URL))
                 .build();
         HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+            System.out.println(httpResponse);
             StringReader csvBodyReader = new StringReader(httpResponse.body());
-
+            System.out.println(csvBodyReader);
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
                     .parse(csvBodyReader);
-
+            System.out.println(records);
         try{
             for (CSVRecord record : records) {
                 StateStats stateStat = new StateStats();
-//                System.out.println(record.get("States"));
-                stateStat.setState(record.get("States"));
+                System.out.println(record.get("States Affected"));
+                stateStat.setState(record.get("States Affected"));
                 stateStat.setTotalNoOfCases(Integer.parseInt(record.get("Total No. of Cases")));
                 stateStat.setTotalNoDischarged(Integer.parseInt(record.get("Total No. Discharged")));
                 stateStat.setTotalNoOfCasesRT(Integer.parseInt(record.get("No. of Cases receiving treatment")));
@@ -63,8 +63,9 @@ public class CoronavirusDataService {
                 stateStat.setTotalNoOfCasesRT(Integer.parseInt("1"));
                 stateStat.setTotalNoOfDeaths(Integer.parseInt("1"));
                 newStats.add(stateStat);
-
             }
+
+            e.printStackTrace();
         }
 
         this.allStats = newStats;
