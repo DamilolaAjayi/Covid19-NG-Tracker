@@ -27,4 +27,5 @@ public class HomeController {
         else landingPage = "home";
         return landingPage;
     }
+    
 }
