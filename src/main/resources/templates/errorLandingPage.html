@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Guessing Game</title>
+    <style>
+        .square{border-radius:15%;width:30%;padding-bottom:30%;background:green;margin:1.66%;float:left;transition:background .4s;-webkit-transition:background .4s;-moz-transition:background .4s}.arrange{text-align:center;background-color:#fff;height:30px}.container{max-width:600px;margin:20px auto}body{background-color:#232323;margin:0;font-family:Montserrat,Avenir}#colorDisplay{font-size:200%}button{font-family:Montserrat,Avenir;border:none;background:0 0;text-transform:uppercase;font-weight:700;color:#4682b4;letter-spacing:1px;font-size:inherit;height:100%;transition:all .3s;outline:0}#message{color:#000;display:inline-block;width:20%;text-align:center}h1{color:#fff;text-transform:uppercase;text-align:center;background:#4682b4;line-height:1.1;padding:20px 0;margin:0;font-weight:400}.selected{color:#fff;background-color:#4682b4;cursor:pointer}button:hover{color:#fff;background-color:#4682b4;cursor:pointer}#easy{cursor:pointer}@media screen and (max-width:600px){#colorDisplay{font-size:inherit}}
+    </style>
+</head>
+<body>
+<div style="color: white; font-weight: bold; text-align:center; font-family: montserrat">Currently experiencing a 307 error with the data source. Please enjoy this while I work on fixing the error</div>
+<p style="color:white; margin:0; text-align:center; font-family: montserrat">The source code for the tracker can be found here however <a style="color: steelblue" href="https://github.com/DamilolaAjayi/Covid19-NG-Tracker">Github</a></p>
+<h1>
+    <span id="colorDisplay">rgb (255, 255, 255)</span>
+    <br>
+    Color Game</h1>
+
+<div class="arrange">
+    <button>New Colors</button>
+    <span id="message"></span>
+    <div style="display:inline">
+        <button class="mode">Easy</button>
+        <button class="mode selected">Hard</button>
+    </div>
+</div>
+<div class="container">
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+</div>
+<script>
+    var pickedColor,noSquares=6,colors=generateRandomColor(noSquares),squares=document.querySelectorAll(".square"),colorDisplay=document.getElementById("colorDisplay"),messageDisplay=document.getElementById("message"),h1=document.querySelector("h1"),resetButton=document.querySelector("div button"),modeButtons=document.querySelectorAll(".mode");function init(){setUpModeButtons(),setUpSquares(),reset()}function setUpModeButtons(){for(var e=0;e<modeButtons.length;e++)modeButtons[e].addEventListener("click",function(){modeButtons[0].classList.remove("selected"),modeButtons[1].classList.remove("selected"),this.classList.add("selected"),noSquares="Easy"===this.textContent?3:6,reset()})}function setUpSquares(){for(var e=0;e<colors.length;e++)squares[e].addEventListener("click",e=>{var t=e.target.style.background;t===pickedColor?(messageDisplay.textContent="Correct!",changeColors(t),h1.style.background=pickedColor,resetButton.textContent="Play Again?"):(e.target.style.background="#232323",messageDisplay.textContent="Try Again")})}function reset(){colors=generateRandomColor(noSquares),pickedColor=pickColor(),colorDisplay.textContent=pickedColor,resetButton.textContent="New Colors",messageDisplay.textContent="";for(var e=0;e<squares.length;e++)colors[e]?(squares[e].style.background=colors[e],squares[e].style.display="block"):squares[e].style.display="none";h1.style.background="steelblue"}function changeColors(e){for(var t=0;t<squares.length;t++)squares[t].style.background=e}function pickColor(){var e=Math.floor(Math.random()*colors.length);return colors[e]}function generateRandomColor(e){for(var t=[],o=0;o<e;o++)t.push(randomColor());return t}function randomColor(){return`rgb(${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())}, ${Math.floor(256*Math.random())})`}colorDisplay.textContent=pickedColor,init(),resetButton.addEventListener("click",function(){reset()});
+</script>
+</body>
+</html>
