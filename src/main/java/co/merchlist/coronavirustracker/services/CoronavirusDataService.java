@@ -36,16 +36,13 @@ public class CoronavirusDataService {
                 .uri(URI.create(VIRUS_DATA_URL))
                 .build();
         HttpResponse<String> httpResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(httpResponse);
             StringReader csvBodyReader = new StringReader(httpResponse.body());
-            System.out.println(csvBodyReader);
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
                     .parse(csvBodyReader);
-            System.out.println(records);
-        try{
+       try{
             for (CSVRecord record : records) {
                 StateStats stateStat = new StateStats();
-                System.out.println(record.get("States Affected"));
+                System.out.println(record.get("Total No. of Cases"));
                 stateStat.setState(record.get("States Affected"));
                 stateStat.setTotalNoOfCases(Integer.parseInt(record.get("Total No. of Cases")));
                 stateStat.setTotalNoDischarged(Integer.parseInt(record.get("Total No. Discharged")));

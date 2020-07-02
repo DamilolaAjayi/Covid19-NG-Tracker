@@ -23,9 +23,9 @@ public class HomeController {
         model.addAttribute("stateStats", allStateStats);
         model.addAttribute("totalReportedCases", totalReportedCases);
         String landingPage;
-        if (totalReportedCases == 7) landingPage = "errorLandingPage";
+        if (totalReportedCases == 35) landingPage = "errorLandingPage";
         else landingPage = "home";
         return landingPage;
     }
-    
+
 }
