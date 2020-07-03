@@ -42,7 +42,6 @@ public class CoronavirusDataService {
        try{
             for (CSVRecord record : records) {
                 StateStats stateStat = new StateStats();
-                System.out.println(record.get("Total No. of Cases"));
                 stateStat.setState(record.get("States Affected"));
                 stateStat.setTotalNoOfCases(Integer.parseInt(record.get("Total No. of Cases")));
                 stateStat.setTotalNoDischarged(Integer.parseInt(record.get("Total No. Discharged")));
